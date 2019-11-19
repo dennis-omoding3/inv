@@ -1,136 +1,280 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>inventories</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% extends 'base.html' %}
 
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-success">
-    <a class="navbar-brand" href="#">inventory management</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+{% block title %}inventory{% endblock %}
+
+{% block content %}
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        add inventory
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">about us</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">product</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">inventories</a>
-            </li>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    add inventory
-</button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/inventories" method="POST">
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">inv_name</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                               placeholder="Enter name">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">inv_name</label>
+                            <input name="inventory" type="text" class="form-control" id="exampleInputEmail1"
+                                   aria-describedby="emailHelp"
+                                   placeholder="Enter name">
 
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">stock</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">reorder point</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                               placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">stock</label>
+                            <input name="stock" type="text" class="form-control" id="exampleInputEmail1"
+                                   aria-describedby="emailHelp"
+                                   placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">type</label>
 
-                    </div>
+                            <select name="type" class="form-control" placeholder="select type">
+                                <option>services</option>
+                                <option>products</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">buying price</label>
+                            <input name="buying_price" type="number" class="form-control" id="exampleInputEmail1"
+                                   aria-describedby="emailHelp"
+                                   placeholder="Enter price">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">selling price</label>
+                            <input name="selling_price" type="number" class="form-control" id="exampleInputEmail1"
+                                   aria-describedby="emailHelp"
+                                   placeholder="Enter price">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">reorder point</label>
+                            <input name="reorder_point" type="number" class="form-control" id="exampleInputEmail1"
+                                   aria-describedby="emailHelp"
+                                   placeholder="Enter name">
+
+                        </div>
+                        <button type="submit" class="btn btn-primary">submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
         </div>
     </div>
-</div>
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">inv_name</th>
-        <th scope="col">type</th>
-        <th scope="col">Bp</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th scope="row">1</th>
-        <td>eggs</td>
-        <td>food</td>
-        <td>50</td>
-    </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>bananas</td>
-        <td>fruit</td>
-        <td>100</td>
-    </tr>
 
-    </tbody>
-</table>
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
 
-</body>
-</html>
+
+    <table class="table myTable">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">inv_name</th>
+            <th scope="col">type</th>
+            <th scope="col">Buying_price</th>
+            <th scope="col">selling_price</th>
+            <th scope="col">stock</th>
+            <th scope="col">reorder-point</th>
+            <th scope="col">view sales</th>
+            <th>edit record</th>
+            <th>sell</th>
+            <th>delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for inventory in inventories %}
+            <tr>
+                <th scope="row">{{ inventory.id }}</th>
+                <td>{{ inventory.inv_name }}</td>
+                <td>{{ inventory.inv_type }}</td>
+                <td>{{ inventory.bp }}</td>
+                <td>{{ inventory.sp }}</td>
+                <td>{{ inventory.stock }}</td>
+                <td>{{ inventory.rp }}</td>
+                <td> <a  href="/Inventory/{{ inventory.id }}/Sales">view sales</a></td>
+                <td>
+
+                    <button data-target="#edit{{ inventory.id }}" data-toggle="modal" class="btn btn-sm btn-info">
+                        edit
+                    </button>
+                    <div class="modal fade" id="edit{{ inventory.id }}" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="edit">edit record
+                                        {{ inventory.id }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/edit" method="POST">
+                                         <div class="form-group">
+                                            <label for="exampleInputEmail1"></label>
+                                            <input  name="inv_id" type="hidden" class="form-control"
+                                                   id="exampleInputEmail1"
+                                                   aria-describedby="emailHelp"
+                                                   value={{ inventory.id }}>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">inv_name</label>
+                                            <input name="inventory" type="text" class="form-control"
+                                                   id="exampleInputEmail1"
+                                                   aria-describedby="emailHelp"
+                                                   value="{{ inventory.inv_name }}">
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleFormControlSelect1">stock</label>
+                                            <input name="stock" type="text" class="form-control
+                                                   id=" exampleInputEmail1"
+                                            aria-describedby="emailHelp"
+                                            value="{{ inventory.stock }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">type</label>
+
+                                            <select name="type" class="form-control" placeholder="select type">
+                                                <option>services</option>
+                                                <option>products</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">buying price</label>
+                                            <input name="buying_price" type="number" class="form-control"
+                                                   id="exampleInputEmail1"
+                                                   aria-describedby="emailHelp"
+                                                   value="{{ inventory.bp }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">selling price</label>
+                                            <input name="selling_price" type="number" class="form-control"
+                                                   id="exampleInputEmail1"
+                                                   aria-describedby="emailHelp"
+                                                   value="{{ inventory.sp }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">reorder point</label>
+                                            <input name="reorder_point" type="number" class="form-control"
+                                                   id="exampleInputEmail1"
+                                                   aria-describedby="emailHelp"
+                                                   value="{{ inventory.rp }}">
+
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                    </button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <button class="'btn btn-sm btn-warning" data-target="#quantity{{ inventory.id }}"
+                            data-toggle="modal"
+                            class="btn btn-sm btn-info">
+                        make sell
+                    </button>
+                    <div class="modal fade" id="quantity{{ inventory.id }}" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="edit">make sell</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/sales" method="POST">
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">quantity</label>
+                                            <input name="quantity" type="number" class="form-control"
+                                                   id="exampleInputEmail1"
+                                                   aria-describedby="emailHelp"
+                                                   value="number">
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1"></label>
+                                            <input  name="inv_id" type="number" class="form-control"
+                                                   id="exampleInputEmail1"
+                                                   aria-describedby="emailHelp"
+                                                   value={{ inventory.id }}>
+
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Sell</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+
+
+                <td>
+                     <button data-target="#delete" data-toggle="modal" class="btn btn-sm btn-danger">
+                        delete
+                    </button>
+                    <div id="delete" class="modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">delete record</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>are you sure you want to delete?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                                    <button type="button" class="btn btn-primary">Yes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+{% endblock %}
+
